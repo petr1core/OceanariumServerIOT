@@ -31,7 +31,7 @@ app.get('/sensor-data', (req, res) => {
 });
 
 app.get('/dash', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'Dash.html'));
+    res.sendFile(path.join(__dirname, 'test.html'));
 });
 
 // Обработка данных формы регистрации
