@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-const sensorData = {
+const sensorData = { // так и оставлю на всякий
     sensor1: { temperature: 25.5, humidity: 60, timestamp: '2022-01-01 12:00:00' },
     sensor2: { temperature: 22.3, humidity: 55, timestamp: '2022-01-01 12:05:00' }
 };

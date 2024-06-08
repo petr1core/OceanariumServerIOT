@@ -35,4 +35,4 @@ function startSensor(sensorId, interval) {
 
 // Запуск нескольких датчиков с разными интервалами
 startSensor('sensor1', 10000); // Датчик 1 отправляет данные каждые 10 секунд
-startSensor('sensor2', 5000);  // Д
+startSensor('sensor2', 5000);  // Датчик 2 отправляет данные каждые 5 секунд
