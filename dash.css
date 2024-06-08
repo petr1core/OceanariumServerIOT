@@ -1,0 +1,89 @@
+body {
+    display: grid;
+    grid-template-areas: 
+        "sidebar main charts"
+        "sidebar map charts";
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100vh;
+    margin: 0;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: #f8f9fa;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.main {
+    grid-area: main;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+}
+
+.top-bar button {
+    background-color: #00aaff;
+    border: none;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.map {
+    grid-area: map;
+    background: url('plan_cut.png') center center no-repeat;
+    background-size: contain;
+    position: relative;
+    height: 100%;
+}
+
+.charts {
+    grid-area: charts;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.chart {
+    flex: 1;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.chart:last-child {
+    margin-bottom: 0;
+}
+
+.info-box {
+    border: 2px solid #00aaff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.logout {
+    grid-area: logout;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    align-self: end;
+}
