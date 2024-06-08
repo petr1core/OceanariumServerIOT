@@ -1,0 +1,32 @@
+<!-- reg.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="reg_style.css">
+</head>
+<body>
+    <div class="container">
+        <form id="registrationForm" action="/register" method="post">
+            <h1>Регистрация</h1>
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="login" name="login" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <label for="phone">Номер телефона:</label>
+            <input 
+            type="tel"
+            id="phone"
+            name="phone" 
+            pattern="[0-9]{1} [0-9]{3}-[0-9]{3}-[0-9]{2}[0-9]{2}" 
+            placeholder="8 000-000-0000" 
+            size="11"
+            required>
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+</html>

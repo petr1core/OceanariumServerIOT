@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Логин</title>
+    <link rel="stylesheet" href="reg_style.css">
+</head>
+<body>
+    <div class="container">
+        <form id="loginForm" action="/login" method="post">
+            <h1>Логин</h1>
+            <label for="login">Имя пользователя:</label>
+            <input type="text" id="login" name="login" required>
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Войти</button>
+        </form>
+        <p>
+            
+            <form id="sign-up" action="/sign-up" method="post">    
+                <label id="sign-up">У меня нет доступа:</label>
+                <button id="sign-up" type="submit">Зарегистрироваться</button>
+            </form>
+        </p>
+    </div>
+</body>
+</html>
