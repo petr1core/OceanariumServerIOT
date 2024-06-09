@@ -13,6 +13,14 @@ body {
     border-radius: 5px;
 }
 
+.sensor-holder {
+    max-height: 400px; /* Максимальная высота контейнера */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
 form {
     display: flex;
     flex-direction: column;

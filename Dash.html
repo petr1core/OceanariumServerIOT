@@ -1,4 +1,3 @@
-<!-- dash.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="dropdown" >
+    <div class="dropdown">
         <form action="/log-out" method="post"><button class="dropbtn" type="submit">Выход</button></form>
         <div class="dropdown-content">
             <a href="#">Секции</a>
@@ -18,17 +17,20 @@
     </div>
 <div class="container">
     <h1>Sensor Dashboard</h1>
-    <div class="sensor-data" id="sensor1">
-        <h2>Sensor 1 Data:</h2>
-        <p>Temperature: <span id="temp1">--</span>°C</p>
-        <p>Humidity: <span id="humid1">--</span>%</p>
-        <p>Last Updated: <span id="time1">--</span></p>
+    <div class="sensor-holder" id="sensor-holder">
+        <!-- Датчики будут добавляться сюда через JS -->
     </div>
-    <div class="sensor-data" id="sensor2">
-        <h2>Sensor 2 Data:</h2>
-        <p>Temperature: <span id="temp2">--</span>°C</p>
-        <p>Humidity: <span id="humid2">--</span>%</p>
-        <p>Last Updated: <span id="time2">--</span></p>
+    <div>
+        <select id="sensor-type">
+            <option value="temperature">Temperature</option>
+            <option value="salinity">Salinity</option>
+            <option value="luminance">Luminance</option>
+        </select>
+        <select id="sensor-status">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+        </select>
+        <button id="create-sensor">Создать</button>
     </div>
 </div>
 <script src="Dash.js"></script>

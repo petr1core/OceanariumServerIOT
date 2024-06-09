@@ -9,16 +9,40 @@ db.serialize(() => {
         telephone TEXT NOT NULL
     )`);
 
-    // Вставляем тестового пользователя
-    const bcrypt = require('bcrypt');
-    const saltRounds = 10;
-    const testPassword = 'password123';
+    db.run(`CREATE TABLE IF NOT EXISTS sensors (
+        sensor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sens_type TEXT NOT NULL,
+        sens_status TEXT NOT NULL
+      )`);
+    
+    // Создание таблиц логов для каждого типа датчика
+    db.run(`CREATE TABLE IF NOT EXISTS temperature_log (
+        log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        temperature_value REAL NOT NULL,
+        timestamp TEXT NOT NULL
+    )`);
+      
+    db.run(`CREATE TABLE IF NOT EXISTS salinity_log (
+        log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        salinity_value REAL NOT NULL,
+        timestamp TEXT NOT NULL
+    )`);
+      
+    db.run(`CREATE TABLE IF NOT EXISTS luminance_log (
+        log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        luminance_value REAL NOT NULL,
+        timestamp TEXT NOT NULL
+    )`);
+    // // Вставляем тестового пользователя
+    // const bcrypt = require('bcrypt');
+    // const saltRounds = 10;
+    // const testPassword = 'password123';
 
-    bcrypt.hash(testPassword, saltRounds, (err, hash) => {
-        if (err) throw err;
-        db.run(`INSERT INTO users (login, password, telephone) VALUES (?, ?, ?)`,
-            ['testuser', hash, '8000-000-0000']);
-    });
+    // bcrypt.hash(testPassword, saltRounds, (err, hash) => {
+    //     if (err) throw err;
+    //     db.run(`INSERT INTO users (login, password, telephone) VALUES (?, ?, ?)`,
+    //         ['testuser', hash, '8000-000-0000']);
+    // });
 });
 
 module.exports = db;
