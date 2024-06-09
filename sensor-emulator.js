@@ -41,7 +41,3 @@ function sendDataToServer(sensorId, type) {
 function startSensor(sensorId, type, interval) {
   setInterval(() => sendDataToServer(sensorId, type), interval);
 }
-
-//startSensor('1', 'temperature', 10000);
-//startSensor('2', 'salinity', 5000);
-//startSensor('3', 'luminance', 15000);

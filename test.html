@@ -13,7 +13,7 @@
             <div class="sensor-holder" id="sensor-holder">
                 <!-- Датчики будут добавляться сюда через JS -->
             </div>
-            <div id="sens_type_create">
+            <div>
                 <select id="sensor-type">
                     <option value="temperature">Temperature</option>
                     <option value="salinity">Salinity</option>
@@ -25,22 +25,19 @@
                 </select>
                 <button id="create-sensor">Создать</button>
             </div>
-            
         </div>
-        <div class="map">
-            <!-- <p>Image map can be placed here</p> -->
+        <div class="map" id="map">
+            <img src="plan_cut.png" alt="Map" id="map-image">
         </div>
         <div class="right">
-            <div><button id="logout-button">ВЫХОД</button></div>
-            <div class="charts">
-                <div class="chart">
-                    <p>выбранный датчик</p>
-                    <div id="selected-sensor-chart">Placeholder for chart</div>
-                </div>
-                <div class="chart">
-                    <p>средняя по палате</p>
-                    <div id="average-chart">Placeholder for chart</div>
-                </div>
+            <button id="logout-button">ВЫХОД</button>
+            <div class="chart">
+                <p>выбранный датчик</p>
+                <div id="selected-sensor-chart">Placeholder for chart</div>
+            </div>
+            <div class="chart">
+                <p>средняя по палате</p>
+                <div id="average-chart">Placeholder for chart</div>
             </div>
         </div>
     </div>

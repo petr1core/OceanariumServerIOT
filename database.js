@@ -33,16 +33,6 @@ db.serialize(() => {
         luminance_value REAL NOT NULL,
         timestamp TEXT NOT NULL
     )`);
-    // // Вставляем тестового пользователя
-    // const bcrypt = require('bcrypt');
-    // const saltRounds = 10;
-    // const testPassword = 'password123';
-
-    // bcrypt.hash(testPassword, saltRounds, (err, hash) => {
-    //     if (err) throw err;
-    //     db.run(`INSERT INTO users (login, password, telephone) VALUES (?, ?, ?)`,
-    //         ['testuser', hash, '8000-000-0000']);
-    // });
 });
 
 module.exports = db;

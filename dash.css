@@ -3,7 +3,6 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
@@ -20,15 +19,12 @@ body, html {
 }
 
 .container {
-    /* justify-content: center; */
     display: grid;
-    grid-area:auto;
+    grid-area: auto;
     padding: 10px;
     border-right: 1px solid #ccc;
     overflow-y: auto;
 }
-
-
 
 .map {
     grid-area: map;
@@ -37,25 +33,47 @@ body, html {
     align-items: center;
     border-right: 1px solid #ccc;
     background-color: #e0e0e0;
-    
+    position: relative; 
 }
 
-.right {
-    /* grid-area: right; */
-    padding: 20px;
-    /* display:block; */
-    /* display: grid; */
-    /* flex-direction: row; */
-    /* justify-content: space-between; */
+.sens {
+    position: absolute; 
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+.sens.on {
+    background-color: green;
+}
+
+.sens.off {
+    background-color: red;
 }
 
 .sensor-holder {
-    max-height: 100%; /*Максимальная высота контейнера  */
-    overflow-y: auto; /* Вертикальная прокрутка */
+    overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
+}
+
+.sensor-data {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.sensor-data h2 {
+    margin-top: 0;
+}
+
+.sensor-data p {
+    margin: 5px 0;
 }
 
 select, button {
@@ -97,18 +115,34 @@ button:hover {
 
 .charts {
     height: 100%;
-/* grid-area: charts; */
-display: flex;
-flex-direction: column;
-padding: 10px;
-box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-#sens_type_create{
+#sens_type_create {
     padding-top: 20px;
     padding-bottom: 20px;
-
     display: flex;
     align-content: center;
     flex-direction: column;
+} 
+
+.selected {
+    border: 2px solid blue; /* Устанавливаем обводку для выделенного датчика */
+}
+
+.right {
+    grid-area: right;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#reverser {
+    margin-top: 10px;
+}
+
+#sensor-holder {
+    margin-top: 10px;
 }
