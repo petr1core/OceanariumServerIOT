@@ -24,7 +24,7 @@ app.get('/sensor-data', (req, res) => {
 });
 
 app.get('/dash', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dash.html'));
+    res.sendFile(path.join(__dirname, 'test.html'));
 });
 
 app.post('/register', (req, res) => {

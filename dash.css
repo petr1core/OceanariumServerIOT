@@ -9,7 +9,7 @@ body {
     margin: 0;
 }
 
-.sidebar {
+.container {
     grid-area: sidebar;
     background-color: #f8f9fa;
     padding: 10px;
@@ -86,4 +86,95 @@ body {
     padding: 10px;
     cursor: pointer;
     align-self: end;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.sensor-holder {
+    max-height: 400px; /* Максимальная высота контейнера */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.dropdown {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+/* Стили для секций с данными сенсоров */
+.sensor-data {
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
 }

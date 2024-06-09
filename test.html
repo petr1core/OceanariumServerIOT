@@ -7,27 +7,22 @@
     <link rel="stylesheet" href="dash.css">
 </head>
 <body>
-    <div class="sidebar">
-        <div class="info-box">
-            <p>номер</p>
-            <p>статус</p>
-            <p>тип</p>
-            <p>температура</p>
-            <p>дата опроса</p>
+    <div class="container">
+        <h1>Sensor Dashboard</h1>
+        <div class="sensor-holder" id="sensor-holder">
+            <!-- Датчики будут добавляться сюда через JS -->
         </div>
-        <div class="info-box">
-            <p>номер</p>
-            <p>статус</p>
-            <p>тип</p>
-            <p>температура</p>
-            <p>дата опроса</p>
-        </div>
-        <div class="info-box">
-            <p>номер</p>
-            <p>статус</p>
-            <p>тип</p>
-            <p>температура</p>
-            <p>дата опроса</p>
+        <div>
+            <select id="sensor-type">
+                <option value="temperature">Temperature</option>
+                <option value="salinity">Salinity</option>
+                <option value="luminance">Luminance</option>
+            </select>
+            <select id="sensor-status">
+                <option value="on">On</option>
+                <option value="off">Off</option>
+            </select>
+            <button id="create-sensor">Создать</button>
         </div>
     </div>
     <div class="main">
@@ -55,5 +50,6 @@
         </div>
     </div>
     <button class="logout">ВЫХОД</button>
+    <script src="dash.js"></script>
 </body>
 </html>
