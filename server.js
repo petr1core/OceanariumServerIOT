@@ -8,7 +8,7 @@ const db = require('./database');
 const app = express();
 const PORT = 3000;
 
-const sensorData = {}; // Убрал начальные данные
+const sensorData = {};
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -75,11 +75,11 @@ app.post('/login', (req, res) => {
 });
 
 app.post('/log-out', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Login.html'))
+    res.sendFile(path.join(__dirname, 'Login.html'));
 });
 
 app.post('/sign-up', (req, res) => { 
-    res.sendFile(path.join(__dirname, 'reg.html'))
+    res.sendFile(path.join(__dirname, 'reg.html'));
 });
 
 app.post('/registered', (req, res) => { 
@@ -87,52 +87,52 @@ app.post('/registered', (req, res) => {
 });
 
 app.post('/create-sensor', (req, res) => {
-  const { type, status } = req.body;
-  db.run(`INSERT INTO sensors (sens_type, sens_status) VALUES (?, ?)`, [type, status], function(err) {
-    if (err) {
-      return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
-    }
-    const sensorId = this.lastID;
-    sensorData[sensorId] = { type, status, value: 0, timestamp: new Date().toISOString() };
-    res.json({ sensorId, type, status });
-  });
+    const { type, status } = req.body;
+    db.run(`INSERT INTO sensors (sens_type, sens_status) VALUES (?, ?)`, [type, status], function(err) {
+        if (err) {
+            return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+        }
+        const sensorId = this.lastID;
+        sensorData[sensorId] = { type, status, value: 0, timestamp: new Date().toISOString() };
+        res.json({ sensorId, type, status });
+    });
 });
 
 app.post('/sensor-data', (req, res) => {
-  const { sensorId, type, value, timestamp } = req.body;
-  if (sensorId && type && value !== undefined && timestamp) {
-    if (!sensorData[sensorId]) {
-      sensorData[sensorId] = { type, status: 'off', value: 0, timestamp: '' };
-    }
-    sensorData[sensorId].value = value;
-    sensorData[sensorId].timestamp = timestamp;
-    
-    let tableName;
-    switch (type) {
-      case 'temperature':
-        tableName = 'temperature_log';
-        break;
-      case 'salinity':
-        tableName = 'salinity_log';
-        break;
-      case 'luminance':
-        tableName = 'luminance_log';
-        break;
-      default:
-        return res.status(400).json({ status: 'error', message: 'Invalid sensor type' });
-    }
+    const { sensorId, type, value, timestamp } = req.body;
+    if (sensorId && type && value !== undefined && timestamp) {
+        if (!sensorData[sensorId]) {
+            sensorData[sensorId] = { type, status: 'off', value: 0, timestamp: '' };
+        }
+        sensorData[sensorId].value = value;
+        sensorData[sensorId].timestamp = timestamp;
 
-    db.run(`INSERT INTO ${tableName} (${type}_value, timestamp) VALUES (?, ?)`, [value, timestamp], (err) => {
-      if (err) {
-        return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
-      }
-      res.json({ status: 'success' });
-    });
-  } else {
-    res.status(400).json({ status: 'error', message: 'Invalid data or sensor ID' });
-  }
+        let tableName;
+        switch (type) {
+            case 'temperature':
+                tableName = 'temperature_log';
+                break;
+            case 'salinity':
+                tableName = 'salinity_log';
+                break;
+            case 'luminance':
+                tableName = 'luminance_log';
+                break;
+            default:
+                return res.status(400).json({ status: 'error', message: 'Invalid sensor type' });
+        }
+        
+        db.run(`INSERT INTO ${tableName} (${type}_value, timestamp) VALUES (?, ?)`, [value, timestamp], (err) => {
+            if (err) {
+                return res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+            }
+            res.json({ status: 'success' });
+        });
+    } else {
+        res.status(400).json({ status: 'error', message: 'Invalid data or sensor ID' });
+    }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+    console.log(`Server is listening on port ${PORT}`);
 });
