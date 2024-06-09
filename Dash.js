@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
               
               // Запуск интервала для отправки данных, если его еще нет
               if (!sensorIntervals[sensorId]) {
-                  startSensor(sensorId, sensor.type, 5000); // Интервал можно настроить
+                  startSensor(sensorId, sensor.type, 50000); // Интервал можно настроить
               }
           });
       } catch (error) {

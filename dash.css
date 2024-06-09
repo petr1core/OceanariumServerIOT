@@ -1,126 +1,64 @@
-body {
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
     display: grid;
     grid-template-areas: 
-        "sidebar main charts"
-        "sidebar map charts";
+        "container map right";
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: auto 1fr;
-    height: 100vh;
-    margin: 0;
+    grid-template-rows: 1fr;
+    height: 100%;
+    width: 100%;
+    
 }
 
 .container {
-    grid-area: sidebar;
-    background-color: #f8f9fa;
+    /* justify-content: center; */
+    display: grid;
+    grid-area:auto;
     padding: 10px;
-    box-sizing: border-box;
+    border-right: 1px solid #ccc;
     overflow-y: auto;
 }
 
-.main {
-    grid-area: main;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    box-sizing: border-box;
-}
 
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-}
-
-.top-bar button {
-    background-color: #00aaff;
-    border: none;
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-}
 
 .map {
     grid-area: map;
-    background: url('plan_cut.png') center center no-repeat;
-    background-size: contain;
-    position: relative;
-    height: 100%;
-}
-
-.charts {
-    grid-area: charts;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.chart {
-    flex: 1;
-    border: 2px solid #000;
-    border-radius: 5px;
-    padding: 10px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-.chart:last-child {
-    margin-bottom: 0;
-}
-
-.info-box {
-    border: 2px solid #00aaff;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.logout {
-    grid-area: logout;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    align-self: end;
-}
-body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    border-right: 1px solid #ccc;
+    background-color: #e0e0e0;
+    
 }
 
-.container {
-    width: 300px;
+.right {
+    /* grid-area: right; */
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    /* display:block; */
+    /* display: grid; */
+    /* flex-direction: row; */
+    /* justify-content: space-between; */
 }
 
 .sensor-holder {
-    max-height: 400px; /* Максимальная высота контейнера */
+    max-height: 100%; /*Максимальная высота контейнера  */
     overflow-y: auto; /* Вертикальная прокрутка */
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 20px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-bottom: 5px;
-}
-
-input {
-    padding: 5px;
+select, button {
     margin-bottom: 10px;
 }
 
@@ -137,44 +75,40 @@ button:hover {
     background-color: #0056b3;
 }
 
-.dropdown {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
-
-/* Стили для секций с данными сенсоров */
-.sensor-data {
+.chart {
+    height: 50%;
     border: 2px solid #007bff;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
+}
+
+#logout-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    align-self: flex-end;
+    position: absolute;
+    top:0px;
+    right:0px;
+}
+
+.charts {
+    height: 100%;
+/* grid-area: charts; */
+display: flex;
+flex-direction: column;
+padding: 10px;
+box-sizing: border-box;
+}
+
+#sens_type_create{
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    display: flex;
+    align-content: center;
+    flex-direction: column;
 }
