@@ -1,3 +1,5 @@
+//server.js
+
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
@@ -8,11 +10,6 @@ const db = require('./database');
 const app = express();
 const PORT = 3000;
 
-let sensorData = { // изменим на let чтобы можно было модифицировать
-    // sensor1: { type: 'temperature', status: 'on', value: 25.5, timestamp: '2022-01-01 12:00:00' },
-    // sensor2: { type: 'salinity', status: 'on', value: 22.3, timestamp: '2022-01-01 12:05:00' }
-};
-
 // Middleware для парсинга JSON тел запросов
 app.use(express.json());
 app.use(bodyParser.json());
@@ -20,29 +17,45 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Обслуживание статических файлов (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
 
-// Обработка GET-запросов для получения данных сенсоров
+// страница при открытии сайта (регистрации)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'reg.html'));
+    res.sendFile(path.join(__dirname, 'registration.html'));
 });
 
-app.get('/sensor-data', (req, res) => {
-    res.json(sensorData);
+// страница входа
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
 });
 
+// главная страница (после входа/регистрации)
 app.get('/dash', (req, res)=>{
-    res.sendFile(path.join(__dirname, 'test.html'));
+    res.sendFile(path.join(__dirname, 'Dash.html'));
+});
+
+// при нажатии "ВЫХОД ИЗ АККАУНТА"
+app.post('/log-out', (req, res) => {
+    res.redirect('/login');
+})
+
+// при нажатии "У МЕНЯ НЕТ АККАУНТА"
+app.post('/sign-up', (req, res) => {
+    res.redirect('/');
+});
+
+// при нажатии "У МЕНЯ УЖЕ ЕСТЬ АККАУНТ"
+app.post('/sign-in', (req, res) => {
+    res.redirect('/login');
 });
 
 // Обработка данных формы регистрации
-app.post('/register', (req, res) => {
+app.post('/process-registration', (req, res) => {
     const { login, password, phone } = req.body;
-
     db.get('SELECT * FROM users WHERE login = ?', [login], (err, user) => {
         if (err) {
             return res.status(500).send('Internal Server Error');
         }
         if (user) {
-            return res.status(400).send('User already exists');
+            return res.status(400).json({ message: 'User already exists' });
         }
 
         bcrypt.hash(password, 10, (err, hashedPassword) => {
@@ -55,7 +68,7 @@ app.post('/register', (req, res) => {
                     if (err) {
                         return res.status(500).send('Internal Server Error');
                     }
-                    res.redirect('/dash');
+                    res.status(200).json({ message: 'Registration successful' });
                 });
         });
     });
@@ -66,66 +79,66 @@ app.post('/login', (req, res) => {
     const { login, password } = req.body;
     db.get('SELECT * FROM users WHERE login = ?', [login], (err, user) => {
         if (err) {
-            return res.status(500).send('Internal Server Error');
+            console.log(500);
+            return res.status(500).json({ message: 'Internal Server Error' });
         }
         if (!user) {
-            console.log('notuser');
-            return res.status(401).send('Invalid login credentials');
+            console.log(401);
+            return res.status(401).json({ message: 'No user. Invalid login credentials' });
         }
 
         bcrypt.compare(password, user.password, (err, result) => {
             if (result) {
-                res.redirect('/dash');
+                res.status(200).json({ message: 'Login successful' });
             } else {
-                res.status(401).send('Invalid login credentials');
+                console.log(401);
+                return res.status(401).json({ message: 'Invalid login credentials' });
             }
         });
     });
 });
 
-app.post('/dash', (req, res) => {
-    res.redirect('/');
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
 });
 
-app.post('/log-out', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Login.html'))
-})
+// ******************************************************************************************************* //
+// Ниже новая часть кода, которая может работать неправильно или вовсе быть сломаной.  Будем её исправлять 
 
-app.post('/sign-up', (req, res) => {
-    res.sendFile(path.join(__dirname, 'reg.html'))
+
+let sensorData = { };
+
+app.get('/sensor-data', (req, res) => {
+    res.json(sensorData);
 });
 
-app.post('/registered', (req, res) => {
-    res.redirect('/dash');
+app.post('/sensor-data', (req, res) => {
+    const data = req.body;
+    if (data && data.sensorId && sensorData[data.sensorId]) {
+        sensorData[data.sensorId] = {
+            type: data.type,
+            status: sensorData[data.sensorId].status,
+            value: data.value,
+            timestamp: data.timestamp
+        };
+        res.json({ status: 'success' });
+    } else {
+        res.status(400).json({ status: 'error', message: 'Invalid data or sensor ID' });
+    }
 });
 
-// app.post('/sensor-data', (req, res) => {
-//     const data = req.body;
-//     if (data && data.sensorId && sensorData[data.sensorId]) {
-//         sensorData[data.sensorId] = {
-//             type: data.type,
-//             status: sensorData[data.sensorId].status,
-//             value: data.value,
-//             timestamp: data.timestamp
-//         };
-//         res.json({ status: 'success' });
-//     } else {
-//         res.status(400).json({ status: 'error', message: 'Invalid data or sensor ID' });
-//     }
-// });
-
-// // Новый маршрут для создания датчика
-// app.post('/create-sensor', (req, res) => {
-//     const { type, status } = req.body;
-//     const sensorId = `sensor${Object.keys(sensorData).length + 1}`;
-//     sensorData[sensorId] = {
-//         type,
-//         status,
-//         value: '--',
-//         timestamp: new Date().toISOString()
-//     };
-//     res.json({ sensorId, ...sensorData[sensorId] });
-// });
+// Новый маршрут для создания датчика
+app.post('/create-sensor', (req, res) => {
+    const { type, status } = req.body;
+    const sensorId = `sensor${Object.keys(sensorData).length + 1}`;
+    sensorData[sensorId] = {
+        type,
+        status,
+        value: '--',
+        timestamp: new Date().toISOString()
+    };
+    res.json({ sensorId, ...sensorData[sensorId] });
+});
 app.post('/create-sensor', (req, res) => {
     const { type, status } = req.body;
     db.run(`INSERT INTO sensors (sens_type, sens_status) VALUES (?, ?)`, [type, status], function(err) {
@@ -176,8 +189,4 @@ app.post('/sensor-data', (req, res) => {
     } else {
         res.status(400).json({ status: 'error', message: 'Invalid data or sensor ID' });
     }
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
 });

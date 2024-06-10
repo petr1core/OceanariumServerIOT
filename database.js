@@ -1,3 +1,4 @@
+// database.js
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('ocean.db'); // или укажите путь к файлу, если хотите постоянную БД
 
@@ -8,6 +9,10 @@ db.serialize(() => {
         password TEXT NOT NULL,
         telephone TEXT NOT NULL
     )`);
+
+    // заметь, мы раскомментировали этот код, 
+    // теперь база данных расширилась ещё на несколько таблиц,
+    // они нужны чтобы хранить информацию о датчиках
 
     db.run(`CREATE TABLE IF NOT EXISTS sensors (
         sensor_id INTEGER PRIMARY KEY AUTOINCREMENT,

@@ -1,5 +1,5 @@
 
-const db = require('./database');
+const db = require('../database');
 login = 'admin'
 //const { login, password } = req.body;
     db.get('SELECT * FROM users WHERE login = ?', login, (err, user) => {

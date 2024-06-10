@@ -1,3 +1,12 @@
+//Dash.js
+// этот код может работать некорректно или быть вовсе сломан, нам предстоит его исправить
+
+// Обработчик для кнопки "ВЫХОД"
+document.getElementById('logout-button').addEventListener('click', () => {
+  window.location.href = '/login';
+});
+
+/// часть для карты
 let i = 0;
 let per = JSON.parse(localStorage.getItem('mas')) || [];
 let masOfOn = [];
@@ -110,12 +119,18 @@ function selectSensor(event) {
   event.currentTarget.classList.add('selected');
 }
 
-
+//// часть для сенсорного взаимодействия
 
 document.addEventListener('DOMContentLoaded', () => {
   const sensorHolder = document.getElementById('sensor-holder');
   const createSensorButton = document.getElementById('create-sensor');
+  const logoutButton = document.getElementById('logout-button'); // добавляем кнопку выхода
   const sensorIntervals = {}; // Хранение интервалов для каждого датчика
+
+  // Обработчик события для кнопки выхода
+  logoutButton.addEventListener('click', () => {
+    window.location.href = '/login';
+  });
 
   async function fetchSensors() {
     try {
@@ -150,30 +165,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-createSensorButton.addEventListener('click', async () => {
-  const type = document.getElementById('sensor-type').value;
-  const status = document.getElementById('sensor-status').value;
-  try {
-    const response = await fetch('/create-sensor', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, status })
-    });
-    const data = await response.json();
-    console.log('Sensor created:', data);
-    fetchSensors();
-  } catch (error) {
-    console.error('Error creating sensor:', error);
-  }
-});
+  createSensorButton.addEventListener('click', async () => {
+    const type = document.getElementById('sensor-type').value;
+    const status = document.getElementById('sensor-status').value;
+    try {
+      const response = await fetch('/create-sensor', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, status })
+      });
+      const data = await response.json();
+      console.log('Sensor created:', data);
+      fetchSensors();
+    } catch (error) {
+      console.error('Error creating sensor:', error);
+    }
+  });
+// если ты видишь две версии функции, одну с комментариями, другую - без, то вероятнее всего, что этот код нерабочий и его следует починить
+
 //   function startSensor(sensorId, type, interval) {
 //     if (sensorIntervals[sensorId]) {
 //       clearInterval(sensorIntervals[sensorId]);
 //     }
 //     sensorIntervals[sensorId] = setInterval(() => sendDataToServer(sensorId, type), interval);
 //   }
+
 function startSensor(sensorId, type, interval) {
-  // Проверка статуса перед запуском интервала
   if (sensorIntervals[sensorId]) {
     clearInterval(sensorIntervals[sensorId]);
   }

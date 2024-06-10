@@ -1,39 +1,46 @@
+<!-- dash.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Server Dashboard</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dash.css">
 </head>
 <body>
-    <div class="dropdown">
-        <form action="/log-out" method="post"><button class="dropbtn" type="submit">Выход</button></form>
-        <div class="dropdown-content">
-            <a href="#">Секции</a>
-            <a href="#">Карта</a>
-            <a href="#">Статистика</a>
+    <div class="grid-container">
+        <div class="container">
+            <h1>Sensor Dashboard</h1>
+            <div class="sensor-holder" id="sensor-holder">
+                <!-- Датчики будут добавляться сюда через JS -->
+            </div>
+            <div>
+                <select id="sensor-type">
+                    <option value="temperature">Temperature</option>
+                    <option value="salinity">Salinity</option>
+                    <option value="luminance">Luminance</option>
+                </select>
+                <select id="sensor-status">
+                    <option value="on">On</option>
+                    <option value="off">Off</option>
+                </select>
+                <button id="create-sensor">Создать</button>
+            </div>
+        </div>
+        <div class="map" id="map">
+        </div>
+        <div class="right">
+            <button id="logout-button">ВЫХОД</button>
+            <div class="chart">
+                <p>выбранный датчик</p>
+                <div id="selected-sensor-chart">Placeholder for chart</div>
+            </div>
+            <div class="chart">
+                <p>средняя по палате</p>
+                <div id="average-chart">Placeholder for chart</div>
+            </div>
         </div>
     </div>
-<div class="container">
-    <h1>Sensor Dashboard</h1>
-    <div class="sensor-holder" id="sensor-holder">
-        <!-- Датчики будут добавляться сюда через JS -->
-    </div>
-    <div>
-        <select id="sensor-type">
-            <option value="temperature">Temperature</option>
-            <option value="salinity">Salinity</option>
-            <option value="luminance">Luminance</option>
-        </select>
-        <select id="sensor-status">
-            <option value="on">On</option>
-            <option value="off">Off</option>
-        </select>
-        <button id="create-sensor">Создать</button>
-    </div>
-</div>
-<script src="Dash.js"></script>
+    <script src="Dash.js"></script>
 </body>
 </html>
-
